@@ -1,11 +1,8 @@
 import { asyncHandler } from "../utils/errorHandilng.js";
 import userModel from "../../dataBase/models/user.model.js";
 import { hash } from "../utils/hahsAndCompare.js";
-import { signup } from "../validators/auth.validators.js";
 export const signUp = asyncHandler(async (req, res, next) => {
   const { firstName, lastName, email, password, age, gender } = req.body;
-
-
 
   const checkUser = await userModel.findOne({ email });
 

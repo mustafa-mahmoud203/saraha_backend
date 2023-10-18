@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export const signup = {
+export const signUp = {
   body: joi
     .object({
       firstName: joi.string().min(3).max(15).alphanum().required(),
