@@ -10,6 +10,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
   if (checkUser) {
     return next(new Error("Email Exist"));
   }
+
   const hashPassswrd = hash(password);
 
   const user = await userModel.create({
