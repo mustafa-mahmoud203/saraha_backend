@@ -1,6 +1,7 @@
 import { asyncHandler } from "../utils/errorHandilng.js";
 import userModel from "../../dataBase/models/user.model.js";
-import bcrypt from "bcryptjs";
+import { hash } from "../utils/hahsAndCompare.js";
+
 export const signUp = asyncHandler(async (req, res, next) => {
   const { firstName, lastName, email, password, age, gender } = req.body;
 
@@ -9,7 +10,7 @@ export const signUp = asyncHandler(async (req, res, next) => {
   if (checkUser) {
     return next(new Error("Email Exist"));
   }
-  const hashPassswrd = bcrypt.hashSync(password, 10);
+  const hashPassswrd = hash(password);
 
   const user = await userModel.create({
     firstName,
