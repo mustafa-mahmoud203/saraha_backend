@@ -1,0 +1,9 @@
+import { Router } from "express";
+// import validation from "../middleware/validation.js";
+// import * as validators from "../validators/user.validators.js";
+import authentication from "../middleware/authentication.js";
+import * as userController from "../controllers/user.js";
+const router = Router();
+
+router.get("/", authentication, userController.userData);
+export default router;
