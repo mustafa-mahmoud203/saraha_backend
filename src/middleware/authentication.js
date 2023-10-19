@@ -17,9 +17,9 @@ const authentication = asyncHandler(async (req, res, next) => {
     return next(new Error("in-valid token payload"));
   }
 
-  const authUser =await userModel
+  const authUser = await userModel
     .findById(tokenData.id)
-    .select(" id firstName lastName email ");
+    .select(" id firstName lastName email password ");
 
   if (!authUser) {
     return next(new Error("Not Register account"));
