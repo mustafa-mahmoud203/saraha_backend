@@ -21,3 +21,13 @@ export const signUp = {
     })
     .required(),
 };
+export const login = joi.object({
+  email: joi
+    .string()
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
+    .required(),
+  password: joi
+    .string()
+    .pattern(new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/))
+    .required(),
+});

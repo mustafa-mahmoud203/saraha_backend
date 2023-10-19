@@ -5,6 +5,6 @@ import * as validators from "../validators/auth.validators.js";
 const router = Router();
 
 router.post("/signUp", validation(validators.signUp), authController.signUp);
-router.post("/login", authController.login);
+router.post("/login", validation(validators.login), authController.login);
 
 export default router;
