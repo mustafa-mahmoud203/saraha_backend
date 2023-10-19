@@ -2,20 +2,12 @@ import userModel from "../../dataBase/models/user.model.js";
 import messageModel from "../../dataBase/models/message.model.js";
 
 import { asyncHandler } from "../utils/errorHandilng.js";
-import { jwtVerify } from "../utils/token.js";
 
 export const messages = asyncHandler(async (req, res, next) => {
-  const { authorization } = req.headers;
-  const decoded = jwtVerify(authorization);
-  console.log(decoded);
+  const user = req.user;
 
-  const user = await userModel.findById(decoded.id);
-  if (!user) {
-    return next(new Error("Not Register account"));
-  }
-
-  const messageList = await messageModel.find();
-  //   const messageList = await messageModel.find().populate("receiverId");
+  const messageList = await messageModel.find({ receiverId: user.id });
+  //   const messageList = await messageModel.find({ receiverId: user.id }).populate("receiverId");
 
   return res.json({ message: "Done", messageList });
 });
