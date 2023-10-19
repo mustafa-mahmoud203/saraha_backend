@@ -1,9 +1,9 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 const messageSchema = new Schema(
   {
     message: {
-      type: string,
+      type: String,
       required: true,
     },
     receiverId: {
