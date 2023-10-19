@@ -10,7 +10,7 @@ const port = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use("/", authRouter);
-app.use("/message", messageRouter);
+app.use("/", messageRouter);
 app.use("*", (res, req, next) => {
   return next(new Error("404 Page Not Found", { cause: 404 }));
 });

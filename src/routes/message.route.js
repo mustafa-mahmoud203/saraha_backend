@@ -5,9 +5,10 @@ import * as validators from "../validators/message.validators.js";
 const router = Router();
 
 router.post(
-  "/:receiverId",
+  "/message/:receiverId",
   validation(validators.message),
   messageController.sendMessage
 );
 
+router.get("/messages",messageController.messages)
 export default router;
