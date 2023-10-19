@@ -5,5 +5,7 @@ import authentication from "../middleware/authentication.js";
 import * as userController from "../controllers/user.js";
 const router = Router();
 
+router.put("/", authentication, userController.updateData);
+
 router.get("/", authentication, userController.userData);
 export default router;
