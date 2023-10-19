@@ -2,6 +2,7 @@ const methodeData = ["body", "params", "headers", "query"];
 
 const validation = (schema) => {
   return (req, res, next) => {
+    
     const validationArr = [];
 
     methodeData.forEach((key) => {
