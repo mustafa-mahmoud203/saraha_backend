@@ -5,3 +5,8 @@ export const jwtSign = ({ payload = "" } = {}) => {
   });
   return token;
 };
+
+export const jwtVerify = (token) => {
+  const decode = jwt.verify(token, process.env.TOKEN_SIGNTURE);
+  return decode;
+};
