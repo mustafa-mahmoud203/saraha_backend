@@ -13,4 +13,11 @@ router.post(
 );
 
 router.get("/messages", authentication, messageController.messages);
+
+router.delete(
+  "/message/:id",
+  validation(validators.deleteMessage),
+  authentication,
+  messageController.deleteMessage
+);
 export default router;

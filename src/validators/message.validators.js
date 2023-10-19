@@ -8,3 +8,8 @@ export const message = {
     receiverId: joi.string().min(24).max(24).required(),
   }),
 };
+export const deleteMessage = {
+  params: joi.object({
+    id: joi.string().min(24).max(24).required(),
+  }),
+};

@@ -22,3 +22,13 @@ export const sendMessage = asyncHandler(async (req, res, next) => {
   const messagesending = await messageModel.create({ message, receiverId });
   return res.status(201).json({ message: "Done", data: messagesending });
 });
+
+export const deleteMessage = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  const checkMessage = await messageModel.findById(id);
+  if (!checkMessage) {
+    return next(new Error("In-valid message id"));
+  }
+  const message = await messageModel.deleteOne({ _id: id });
+  return res.status(200).json({ message: "Done" });
+});
