@@ -10,3 +10,17 @@ export const userData = {
     })
     .required(),
 };
+
+export const userPassword = {
+  body: joi
+    .object({
+      password: joi
+        .string()
+        .pattern(
+          new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
+        )
+        .required(),
+      confirmPassword: joi.string().valid(joi.ref("password")).required(),
+    })
+    .required(),
+};

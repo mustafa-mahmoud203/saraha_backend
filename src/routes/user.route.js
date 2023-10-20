@@ -11,7 +11,12 @@ router.put(
   authentication,
   userController.updateData
 );
-router.patch("/", authentication, userController.updatePassword);
+router.patch(
+  "/",
+  validation(validators.userPassword),
+  authentication,
+  userController.updatePassword
+);
 
 router.get("/", authentication, userController.userData);
 export default router;

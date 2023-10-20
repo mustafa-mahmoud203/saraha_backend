@@ -17,7 +17,7 @@ export const sendMessage = asyncHandler(async (req, res, next) => {
   const { message } = req.body;
   const user = await userModel.findById(receiverId);
   if (!user) {
-    return next(new Error("In-valid User-Id", { cause: 404 }));
+    return next(new Error("In-valid Account", { cause: 404 }));
   }
   const messagesending = await messageModel.create({ message, receiverId });
   return res.status(201).json({ message: "Done", data: messagesending });
@@ -25,10 +25,12 @@ export const sendMessage = asyncHandler(async (req, res, next) => {
 
 export const deleteMessage = asyncHandler(async (req, res, next) => {
   const { id } = req.params;
-  const checkMessage = await messageModel.findById(id);
-  if (!checkMessage) {
-    return next(new Error("In-valid message id"));
-  }
-  const message = await messageModel.deleteOne({ _id: id });
-  return res.status(200).json({ message: "Done" });
+
+  const message = await messageModel.deleteOne({
+    _id: id,
+    receiverId: req.user._id,
+  });
+  return message.deletedCount
+    ? res.status(200).json({ message: "Done" })
+    : next(new Error("In-valid message id"), { cause: 400 });
 });
