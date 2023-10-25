@@ -14,13 +14,20 @@ export const userData = {
 export const userPassword = {
   body: joi
     .object({
-      password: joi
+      oldPassword: joi
         .string()
         .pattern(
           new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
         )
         .required(),
-      confirmPassword: joi.string().valid(joi.ref("password")).required(),
+      newPassword: joi
+        .string()
+        .invalid(joi.ref("oldPassword"))
+        .pattern(
+          new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
+        )
+        .required(),
+      confirmPassword: joi.string().valid(joi.ref("newPassword")).required(),
     })
     .required(),
 };

@@ -18,22 +18,22 @@ export const updateData = asyncHandler(async (req, res, next) => {
 
 export const updatePassword = asyncHandler(async (req, res, next) => {
   const user = req.user;
-  const { password } = req.body;
+  const { oldPassword, newPassword } = req.body;
 
-  const checkoldPassword = compare({
-    password: password,
+  const checkOldPassword = compare({
+    password: oldPassword,
     hasedPassword: user.password,
   });
 
-  if (checkoldPassword) {
-    return next(new Error("this password already used try use new password"));
+  if (!checkOldPassword) {
+    return next(new Error("In-valid old password", { cause: 400 }));
   }
 
-  const newPassword = hash(password);
+  const password = hash(newPassword);
 
   const userUpdate = await userModel.updateOne(
     { _id: user.id },
-    { password: newPassword }
+    { password: password }
   );
 
   return res.status(200).json({ message: "Done", userUpdate });
