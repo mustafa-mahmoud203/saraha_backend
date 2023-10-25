@@ -2,7 +2,7 @@ import joi from "joi";
 
 const methodeData = ["body", "params", "headers", "query"];
 
-export const generalFields = {
+export const validationFields = {
   firstName: joi.string().min(3).max(15).alphanum().required(),
   lastName: joi.string().min(3).max(15).alphanum().required(),
   id: joi.string().min(24).max(24).required(),

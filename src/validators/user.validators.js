@@ -1,13 +1,13 @@
 import joi from "joi";
-import { generalFields } from "../middleware/validation.js";
+import { validationFields } from "../middleware/validation.js";
 
 export const userData = {
   body: joi
     .object({
-      firstName: generalFields.firstName,
-      lastName: generalFields.lastName,
-      age: generalFields.age,
-      gender: generalFields.gender,
+      firstName: validationFields.firstName,
+      lastName: validationFields.lastName,
+      age: validationFields.age,
+      gender: validationFields.gender,
     })
     .required(),
 };
@@ -15,9 +15,9 @@ export const userData = {
 export const userPassword = {
   body: joi
     .object({
-      oldPassword: generalFields.password,
-      newPassword: generalFields.newPassword.invalid(joi.ref("oldPassword")),
-      confirmPassword: generalFields.confirmPassword.valid(
+      oldPassword: validationFields.password,
+      newPassword: validationFields.newPassword.invalid(joi.ref("oldPassword")),
+      confirmPassword: validationFields.confirmPassword.valid(
         joi.ref("newPassword")
       ),
     })
