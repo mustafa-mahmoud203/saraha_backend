@@ -19,4 +19,10 @@ router.patch(
 );
 
 router.get("/", authentication, userController.userData);
+
+router.get(
+  "/:id/profile",
+  validation(validators.shareProfile),
+  userController.shareProfile
+);
 export default router;

@@ -23,3 +23,8 @@ export const userPassword = {
     })
     .required(),
 };
+export const shareProfile = {
+  params: joi.object({
+    id: validationFields.id,
+  }),
+};

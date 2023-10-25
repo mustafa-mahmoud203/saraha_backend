@@ -8,6 +8,17 @@ export const userData = asyncHandler(async (req, res, next) => {
   return res.status(200).json({ message: "Done", user });
 });
 
+export const shareProfile = asyncHandler(async (req, res, next) => {
+  const { id } = req.params;
+  console.log(id);
+  const user = await userModel
+    .findById(id)
+    .select("userName firstName lastName gender ang");
+  return user
+    ? res.status(200).json({ message: "Done", user })
+    : next(new Error("In-valid account", { cause: 404 }));
+});
+
 export const updateData = asyncHandler(async (req, res, next) => {
   const { id } = req.user;
   const data = req.body;
