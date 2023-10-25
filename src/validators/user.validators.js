@@ -1,12 +1,13 @@
 import joi from "joi";
+import { generalFields } from "../middleware/validation.js";
 
 export const userData = {
   body: joi
     .object({
-      firstName: joi.string().min(3).max(15).alphanum(),
-      lastName: joi.string().min(3).max(15).alphanum(),
-      age: joi.number().integer().min(15).max(100),
-      gender: joi.string().valid("male", "MALE", "female", "FEMALE"),
+      firstName: generalFields.firstName,
+      lastName: generalFields.lastName,
+      age: generalFields.age,
+      gender: generalFields.gender,
     })
     .required(),
 };
@@ -14,20 +15,11 @@ export const userData = {
 export const userPassword = {
   body: joi
     .object({
-      oldPassword: joi
-        .string()
-        .pattern(
-          new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
-        )
-        .required(),
-      newPassword: joi
-        .string()
-        .invalid(joi.ref("oldPassword"))
-        .pattern(
-          new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
-        )
-        .required(),
-      confirmPassword: joi.string().valid(joi.ref("newPassword")).required(),
+      oldPassword: generalFields.password,
+      newPassword: generalFields.newPassword.invalid(joi.ref("oldPassword")),
+      confirmPassword: generalFields.confirmPassword.valid(
+        joi.ref("newPassword")
+      ),
     })
     .required(),
 };

@@ -1,37 +1,22 @@
 import joi from "joi";
+import { generalFields } from "../middleware/validation.js";
 
 export const signUp = {
   body: joi
     .object({
-      firstName: joi.string().min(3).max(15).alphanum().required(),
-      lastName: joi.string().min(3).max(15).alphanum().required(),
-      email: joi
-        .string()
-        .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
-        .required(),
-      password: joi
-        .string()
-        .pattern(
-          new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
-        )
-        .required(),
-      confirmPassword: joi.string().valid(joi.ref("password")).required(),
-      age: joi.number().integer().min(15).max(100).required(),
-      gender: joi.string().valid("male", "MALE", "female", "FEMALE").required(),
+      firstName: generalFields.firstName,
+      lastName: generalFields.lastName,
+      email: generalFields.email,
+      password: generalFields.password,
+      confirmPassword: generalFields.confirmPassword.valid(joi.ref("password")),
+      age: generalFields.age,
+      gender: generalFields.gender,
     })
     .required(),
 };
 export const login = {
   body: joi.object({
-    email: joi
-      .string()
-      .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } })
-      .required(),
-    password: joi
-      .string()
-      .pattern(
-        new RegExp(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
-      )
-      .required(),
+    email: generalFields.email,
+    password: generalFields.password,
   }),
 };

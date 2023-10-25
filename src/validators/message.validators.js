@@ -1,15 +1,16 @@
 import joi from "joi";
+import { generalFields } from "../middleware/validation.js";
 
 export const message = {
   body: joi.object({
-    message: joi.string().min(6).max(500).required(),
+    message: generalFields.message,
   }),
   params: joi.object({
-    receiverId: joi.string().min(24).max(24).required(),
+    receiverId: generalFields.id,
   }),
 };
 export const deleteMessage = {
   params: joi.object({
-    id: joi.string().min(24).max(24).required(),
+    id: generalFields.id,
   }),
 };
