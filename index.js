@@ -6,6 +6,7 @@ import userRouter from "./src/routes/user.route.js";
 
 import { errorHandilng } from "./src/utils/errorHandilng.js";
 import connectDB from "./dataBase/connection.js";
+import { fileUpload } from "./src/utils/multer.js";
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -18,6 +19,6 @@ app.use("*", (res, req, next) => {
 });
 
 app.use(errorHandilng);
-
+fileUpload();
 connectDB();
 app.listen(port, () => console.log(`server running om port... ${port}!`));
