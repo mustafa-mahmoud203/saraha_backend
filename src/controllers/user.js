@@ -49,3 +49,16 @@ export const updatePassword = asyncHandler(async (req, res, next) => {
 
   return res.status(200).json({ message: "Done", userUpdate });
 });
+
+export const profilePic = asyncHandler(async (req, res, next) => {
+  if (!req.file) {
+    return next(new Error("file is requred", { cause: 400 }));
+  }
+  const user = await userModel.findByIdAndUpdate(
+    req.user._id,
+    { profilePic: req.file.dest },
+    { new: true }
+  );
+
+  return res.json({ message: "Done", user });
+});

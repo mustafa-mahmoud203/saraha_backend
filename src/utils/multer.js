@@ -3,6 +3,10 @@ import { nanoid } from "nanoid";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+
+export const filesValidation = {
+  image: ["image/gif", "image/png", "image/jpeg", "image/bmp", "image/jpg"],
+};
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const fileUpload = (fileTypesValidation = [], __path = "general") => {
   const fullPath = path.join(__dirname, `../uploads/${__path}`);
