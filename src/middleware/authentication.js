@@ -19,7 +19,7 @@ const authentication = asyncHandler(async (req, res, next) => {
 
   const authUser = await userModel
     .findById(tokenData.id)
-    .select(" id firstName lastName email password ");
+    
 
   if (!authUser) {
     return next(new Error("Not Register account"));

@@ -1,6 +1,6 @@
 import joi from "joi";
 
-const methodeData = ["body", "params", "headers", "query"];
+  const methodeData = ["body", "params", "headers", "query"];
 
 export const validationFields = {
   firstName: joi.string().min(3).max(15).alphanum().required(),
